@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "491679085364",
+    "project_id": "rich-stich",
+    "storage_bucket": "rich-stich.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491679085364:android:8c174a4d770f89351f6b61",
+        "android_client_info": {
+          "package_name": "com.example.rich_stich"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn2jKAkXHgtvwXsw53-HGSeyKMuaBayb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
