@@ -17,3 +17,5 @@ local.properties
 # Project exclude paths
 # /app/
 # /gradle/
+/app/src/androidTest/java/com/example/rich_stich/ExampleInstrumentedTest.java
+/app/src/test/java/com/example/rich_stich/ExampleUnitTest.java
