@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button Login;
+    Button Login,register;
     EditText Username, Password;
 
     @Override
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button LoginButton = (Button) findViewById(R.id.buttonLogin);
+        Button RegisterButton = (Button) findViewById(R.id.register);
         EditText Username = (EditText) findViewById(R.id.editTextEmail);
         EditText Password = (EditText) findViewById(R.id.editTextTextPassword);
 
@@ -63,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        RegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterUser.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 }
