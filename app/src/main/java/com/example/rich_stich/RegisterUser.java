@@ -22,7 +22,9 @@ public class RegisterUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         etName=findViewById(R.id.editTextText);
         etEmail = findViewById(R.id.editTextTextEmailAddress);
         etPhone = findViewById(R.id.editTextPhone);
