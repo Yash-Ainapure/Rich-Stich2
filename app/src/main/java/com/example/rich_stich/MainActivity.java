@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         Button LoginButton = (Button) findViewById(R.id.buttonLogin);
         Button RegisterButton = (Button) findViewById(R.id.register);
