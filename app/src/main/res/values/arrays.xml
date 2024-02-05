@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gender_options">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="apparel_options">
+        <item>Shirt</item>
+        <item>Pants</item>
+        <item>Dress</item>
+    </string-array>
+
+    <string-array name="male_apparel_options">
+        <item>Shirt</item>
+        <item>T-Shirt</item>
+        <item>Pant</item>
+        <item>Coat</item>
+        <item>Jeans</item>
+        <item>Hoodie</item>
+        <item>Suit</item>
+    </string-array>
+
+    <string-array name="female_apparel_options">
+        <item>Dress</item>
+        <item>Skirt</item>
+        <item>Leggings</item>
+        <item>Coat</item>
+        <item>Blouse</item>
+    </string-array>
+
+    <string-array name="material_options">
+        <item>Cotton</item>
+        <item>Wool</item>
+        <item>Silk</item>
+    </string-array>
+    <!-- For Males -->
+    <string-array name="measurements_shirt_male">
+        <item>Chest</item>
+        <item>Waist</item>
+        <item>Sleeve length</item>
+        <item>Neck circumference</item>
+    </string-array>
+
+    <string-array name="measurements_tshirt_male">
+        <item>Chest</item>
+        <item>Waist</item>
+        <item>Sleeve length</item>
+    </string-array>
+
+    <string-array name="measurements_pant_male">
+        <item>Waist</item>
+        <item>Hip</item>
+        <item>Inseam length</item>
+        <item>Thigh circumference</item>
+    </string-array>
+
+    <string-array name="measurements_coat_male">
+        <item>Chest</item>
+        <item>Waist</item>
+        <item>Sleeve length</item>
+        <item>Shoulder width</item>
+    </string-array>
+
+    <string-array name="measurements_jeans_male">
+        <item>Waist</item>
+        <item>Hip</item>
+        <item>Inseam length</item>
+        <item>Thigh circumference</item>
+    </string-array>
+
+    <string-array name="measurements_hoodie_male">
+        <item>Chest</item>
+        <item>Waist</item>
+        <item>Sleeve length</item>
+        <item>Hood length</item>
+    </string-array>
+
+    <string-array name="measurements_suit_male">
+        <item>Chest</item>
+        <item>Waist</item>
+        <item>Sleeve length</item>
+        <item>Inseam length (for trousers)</item>
+    </string-array>
+
+    <!-- For Females -->
+    <string-array name="measurements_dress_female">
+        <item>Bust</item>
+        <item>Waist</item>
+        <item>Hip</item>
+        <item>Dress length</item>
+    </string-array>
+
+    <string-array name="measurements_skirt_female">
+        <item>Waist</item>
+        <item>Hip</item>
+        <item>Skirt length</item>
+    </string-array>
+
+    <string-array name="measurements_leggings_female">
+        <item>Waist</item>
+        <item>Hip</item>
+        <item>Inseam length</item>
+    </string-array>
+
+    <string-array name="measurements_coat_female">
+        <item>Bust</item>
+        <item>Waist</item>
+        <item>Sleeve length</item>
+        <item>Coat length</item>
+    </string-array>
+
+    <string-array name="measurements_blouse_female">
+        <item>Bust</item>
+        <item>Waist</item>
+        <item>Sleeve length</item>
+        <item>Neck circumference</item>
+    </string-array>
+
+</resources>

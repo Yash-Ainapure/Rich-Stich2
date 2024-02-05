@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomClothing">
+
+    <Spinner
+        android:id="@+id/genderSpinner"
+        android:layout_width="308dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="56dp"
+        android:entries="@array/gender_options"
+        android:prompt="@string/select_gender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.281"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/apparelSpinner"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:prompt="@string/select_apparel_type"
+        app:layout_constraintEnd_toEndOf="@+id/materialSpinner"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/materialSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/materialSpinner" />
+
+
+    <Spinner
+        android:id="@+id/materialSpinner"
+        android:layout_width="298dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="32dp"
+        android:prompt="@string/select_material"
+        app:layout_constraintEnd_toEndOf="@+id/genderSpinner"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/genderSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
+
+    <Spinner
+        android:id="@+id/measurementsSpinner"
+        android:layout_width="300dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="20dp"
+        android:prompt="@string/select_measurements_prompt"
+        app:layout_constraintEnd_toEndOf="@+id/apparelSpinner"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/apparelSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/apparelSpinner" />
+
+    <Button
+        android:id="@+id/measurementsBtn"
+        android:layout_width="227dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="52dp"
+        android:text="Get Measurements"
+        app:layout_constraintEnd_toEndOf="@+id/measurementsSpinner"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="@+id/measurementsSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/measurementsSpinner" />
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/measurementsBtn"-->
+<!--        app:layout_constraintVertical_bias="0.771">-->
+
+<!--        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            android:id="@+id/measurementsLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"></LinearLayout>-->
+<!--    </ScrollView>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

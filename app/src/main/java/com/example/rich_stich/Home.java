@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -40,6 +41,7 @@ public class Home extends AppCompatActivity {
     Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerTogg1e;
     TextView username;
+    LinearLayout customClothing;
     private FirebaseAuth mAuth;
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -70,6 +72,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        customClothing=findViewById(R.id.linearLayout2);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigationView);
         actionBarDrawerTogg1e = new ActionBarDrawerToggle(this , drawerLayout , R.string.menu_open, R.string.menu_close);
@@ -88,7 +91,15 @@ public class Home extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         username.setText(user.getEmail());
 
+        //custom clothing click listener
+        customClothing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this,CustomClothing.class));
+            }
+        });
 
+        //sidebar navigation
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -142,7 +153,6 @@ public class Home extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //hello yahs
 
     }
 }
