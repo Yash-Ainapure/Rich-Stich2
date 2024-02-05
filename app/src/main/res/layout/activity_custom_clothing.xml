@@ -41,44 +41,17 @@
         app:layout_constraintStart_toStartOf="@+id/genderSpinner"
         app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
 
-    <Spinner
-        android:id="@+id/measurementsSpinner"
-        android:layout_width="300dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="20dp"
-        android:prompt="@string/select_measurements_prompt"
-        app:layout_constraintEnd_toEndOf="@+id/apparelSpinner"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/apparelSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/apparelSpinner" />
-
     <Button
         android:id="@+id/measurementsBtn"
         android:layout_width="227dp"
         android:layout_height="50dp"
-        android:layout_marginTop="52dp"
         android:text="Get Measurements"
-        app:layout_constraintEnd_toEndOf="@+id/measurementsSpinner"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="@+id/measurementsSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/measurementsSpinner" />
-
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/measurementsBtn"-->
-<!--        app:layout_constraintVertical_bias="0.771">-->
-
-<!--        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--            android:id="@+id/measurementsLayout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:orientation="vertical"></LinearLayout>-->
-<!--    </ScrollView>-->
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/apparelSpinner"
+        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintStart_toStartOf="@+id/apparelSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/apparelSpinner"
+        app:layout_constraintVertical_bias="0.098" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

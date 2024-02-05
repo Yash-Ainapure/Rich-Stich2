@@ -29,8 +29,6 @@ public class CustomClothing extends AppCompatActivity {
         Spinner genderSpinner = findViewById(R.id.genderSpinner);
         Spinner apparelSpinner = findViewById(R.id.apparelSpinner);
         Spinner materialSpinner = findViewById(R.id.materialSpinner);
-        Spinner measurementsSpinner = findViewById(R.id.measurementsSpinner);
-
 
         //gender selector adapter
         ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(this,
@@ -49,12 +47,6 @@ public class CustomClothing extends AppCompatActivity {
                 R.array.material_options, android.R.layout.simple_spinner_item);
         materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         materialSpinner.setAdapter(materialAdapter);
-
-        // Set up measurements spinner initially
-        final ArrayAdapter<CharSequence> measurementsAdapter = ArrayAdapter.createFromResource(this,
-                R.array.measurements_shirt_male, android.R.layout.simple_spinner_item);
-        measurementsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        measurementsSpinner.setAdapter(measurementsAdapter);
 
 
         //gender selector
@@ -77,7 +69,6 @@ public class CustomClothing extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 selectedApparel = parentView.getItemAtPosition(position).toString();
-                updateMeasurementsOptions(selectedGender,selectedApparel);
             }
 
             @Override
@@ -86,6 +77,7 @@ public class CustomClothing extends AppCompatActivity {
             }
         });
 
+
         getMeasurements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +85,6 @@ public class CustomClothing extends AppCompatActivity {
             }
         });
     }
-
 
 
     private void updateApparelOptions(String selectedGender) {
@@ -105,46 +96,6 @@ public class CustomClothing extends AppCompatActivity {
                 android.R.layout.simple_spinner_item);
         apparelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         apparelSpinner.setAdapter(apparelAdapter);
-    }
-
-    private void updateMeasurementsOptions(String selectedGender, String selectedApparel) {
-        Spinner measurementsSpinner = findViewById(R.id.measurementsSpinner);
-        int measurementsArrayId = 0; // Default value
-
-        if (selectedGender.equals("Male")) {
-            if (selectedApparel.equals("Shirt")) {
-                measurementsArrayId = R.array.measurements_shirt_male;
-            } else if (selectedApparel.equals("T-Shirt")) {
-                measurementsArrayId = R.array.measurements_tshirt_male;
-            } else if (selectedApparel.equals("Pant")) {
-                measurementsArrayId = R.array.measurements_pant_male;
-            } else if (selectedApparel.equals("Coat")) {
-                measurementsArrayId = R.array.measurements_coat_male;
-            } else if (selectedApparel.equals("Jeans")) {
-                measurementsArrayId = R.array.measurements_jeans_male;
-            } else if (selectedApparel.equals("Hoodie")) {
-                measurementsArrayId = R.array.measurements_hoodie_male;
-            } else if (selectedApparel.equals("Suit")) {
-                measurementsArrayId = R.array.measurements_suit_male;
-            }
-        } else if (selectedGender.equals("Female")) {
-            if (selectedApparel.equals("Dress")) {
-                measurementsArrayId = R.array.measurements_dress_female;
-            } else if (selectedApparel.equals("Skirt")) {
-                measurementsArrayId = R.array.measurements_skirt_female;
-            } else if (selectedApparel.equals("Leggings")) {
-                measurementsArrayId = R.array.measurements_leggings_female;
-            } else if (selectedApparel.equals("Coat")) {
-                measurementsArrayId = R.array.measurements_coat_female;
-            } else if (selectedApparel.equals("Blouse")) {
-                measurementsArrayId = R.array.measurements_blouse_female;
-            }
-        }
-
-        ArrayAdapter<CharSequence> measurementsAdapter = ArrayAdapter.createFromResource(this,
-                measurementsArrayId, android.R.layout.simple_spinner_item);
-        measurementsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        measurementsSpinner.setAdapter(measurementsAdapter);
     }
 
     private void showMeasurementsInputDialog(String selectedGender, String selectedApparel) {
