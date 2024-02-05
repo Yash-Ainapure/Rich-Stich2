@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +22,7 @@ public class CustomClothing extends AppCompatActivity {
 
     private String selectedGender,selectedApparel;
     List<String> enteredMeasurements = new ArrayList<>();
-    Button getMeasurements;
+    Button getMeasurements,placeOrderBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,7 @@ public class CustomClothing extends AppCompatActivity {
 
 
         getMeasurements = findViewById(R.id.measurementsBtn);
+        placeOrderBtn = findViewById(R.id.placeOrder);
         //spinner to select gender from user
         Spinner genderSpinner = findViewById(R.id.genderSpinner);
         Spinner apparelSpinner = findViewById(R.id.apparelSpinner);
@@ -86,6 +88,14 @@ public class CustomClothing extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showMeasurementsInputDialog(selectedGender,selectedApparel);
+            }
+        });
+
+        placeOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //place order
+                startActivity(new Intent(CustomClothing.this,Payment.class));
             }
         });
     }
