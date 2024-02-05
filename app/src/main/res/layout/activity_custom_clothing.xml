@@ -45,13 +45,24 @@
         android:id="@+id/measurementsBtn"
         android:layout_width="227dp"
         android:layout_height="50dp"
+        android:layout_marginTop="48dp"
         android:text="Get Measurements"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/apparelSpinner"
-        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintHorizontal_bias="0.452"
         app:layout_constraintStart_toStartOf="@+id/apparelSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/apparelSpinner"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintTop_toBottomOf="@+id/apparelSpinner" />
+
+    <Button
+        android:id="@+id/placeOrder"
+        android:layout_width="163dp"
+        android:layout_height="43dp"
+        android:text="place order"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/measurementsBtn"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="@+id/measurementsBtn"
+        app:layout_constraintTop_toBottomOf="@+id/measurementsBtn"
+        app:layout_constraintVertical_bias="0.202" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

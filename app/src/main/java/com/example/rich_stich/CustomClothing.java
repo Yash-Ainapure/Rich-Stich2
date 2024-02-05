@@ -14,9 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomClothing extends AppCompatActivity {
 
     private String selectedGender,selectedApparel;
+    List<String> enteredMeasurements = new ArrayList<>();
     Button getMeasurements;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,13 +107,8 @@ public class CustomClothing extends AppCompatActivity {
         builder.setTitle("Enter Measurements");
 
         // Inflate the dynamic layout for measurements input
-        //View dialogView = getLayoutInflater().inflate(R.layout.activity_custom_clothing, null);
-        //LinearLayout measurementsLayout = dialogView.findViewById(R.id.measurementsLayout);
-
-        // Inflate the dynamic layout for measurements input
         View dialogView = getLayoutInflater().inflate(R.layout.measurements_input_dialog, null);
         LinearLayout measurementsLayout = dialogView.findViewById(R.id.measurementsLayout);
-
 
         // Clear existing views in the layout
         measurementsLayout.removeAllViews();
@@ -129,14 +128,33 @@ public class CustomClothing extends AppCompatActivity {
 
         builder.setView(dialogView);
 
+
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Retrieve measurements from dynamically created input fields
-                // ...
+                List<String> enteredMeasurements = new ArrayList<>();
+                int childCount = measurementsLayout.getChildCount();
 
-                // Perform validation and further processing here
-                // You can save the measurements to variables, a database, or process them as needed
+                for (int i = 0; i < childCount; i++) {
+                    View view = measurementsLayout.getChildAt(i);
+                    if (view instanceof EditText) {
+                        EditText editText = (EditText) view;
+                        String measurementValue = editText.getText().toString().trim();
+
+                        // Check if the measurement value is empty
+                        if (measurementValue.isEmpty()) {
+                            // Display an error message or handle the case where a measurement is not provided
+                            Toast.makeText(CustomClothing.this, "Please fill in all measurement fields", Toast.LENGTH_SHORT).show();
+                            return; // Stop further processing if any field is empty
+                        }
+
+                        // Add the measurement to the list
+                        enteredMeasurements.add(measurementValue);
+                    }
+                }
+                // Display all entered measurements in a Toast message
+                displayMeasurementsToast(enteredMeasurements);
             }
         });
 
@@ -150,6 +168,13 @@ public class CustomClothing extends AppCompatActivity {
         builder.create().show();
     }
 
+    private void displayMeasurementsToast(List<String> measurements) {
+        StringBuilder message = new StringBuilder("Entered Measurements:\n");
+        for (String measurement : measurements) {
+            message.append(measurement).append("\n");
+        }
+        Toast.makeText(CustomClothing.this, message.toString(), Toast.LENGTH_LONG).show();
+    }
     private String[] getMeasurementsArray(String selectedGender, String selectedApparel) {
 
         if (selectedGender.equals("Male")) {
