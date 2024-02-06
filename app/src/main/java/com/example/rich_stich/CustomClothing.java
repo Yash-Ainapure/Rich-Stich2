@@ -1,19 +1,31 @@
 package com.example.rich_stich;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +34,20 @@ public class CustomClothing extends AppCompatActivity {
 
     private String selectedGender,selectedApparel;
     List<String> enteredMeasurements = new ArrayList<>();
-    Button getMeasurements,placeOrderBtn;
+    Button getMeasurements,selectMaterial;
+    TextView selectedMaterial;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_clothing);
 
-
+        selectedMaterial = findViewById(R.id.selectedMaterial);
         getMeasurements = findViewById(R.id.measurementsBtn);
-        placeOrderBtn = findViewById(R.id.placeOrder);
+        selectMaterial = findViewById(R.id.placeOrder);
+
         //spinner to select gender from user
         Spinner genderSpinner = findViewById(R.id.genderSpinner);
         Spinner apparelSpinner = findViewById(R.id.apparelSpinner);
-        Spinner materialSpinner = findViewById(R.id.materialSpinner);
 
         //gender selector adapter
         ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(this,
@@ -47,12 +60,6 @@ public class CustomClothing extends AppCompatActivity {
                 R.array.apparel_options, android.R.layout.simple_spinner_item);
         apparelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         apparelSpinner.setAdapter(apparelAdapter);
-
-        //material selector
-        ArrayAdapter<CharSequence> materialAdapter = ArrayAdapter.createFromResource(this,
-                R.array.material_options, android.R.layout.simple_spinner_item);
-        materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        materialSpinner.setAdapter(materialAdapter);
 
 
         //gender selector
@@ -91,14 +98,73 @@ public class CustomClothing extends AppCompatActivity {
             }
         });
 
-        placeOrderBtn.setOnClickListener(new View.OnClickListener() {
+        selectMaterial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //place order
-                startActivity(new Intent(CustomClothing.this,Payment.class));
+                String[] measurementsArray=getMeasurementsArray(selectedGender,selectedApparel);
+                GenderAndApparelSelection obj=new GenderAndApparelSelection(selectedGender,selectedApparel,measurementsArray);
+                Intent intent = new Intent(CustomClothing.this,MaterialSelection.class);
+                intent.putExtra("genderAndApparel", obj);
+                startActivity(intent);
             }
         });
+
+
+        //displaying image in the image view
+        DatabaseReference imagesRef = FirebaseDatabase.getInstance().getReference("imageCollection");
+        imagesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> imageUrls = new ArrayList<>();
+                List<String> imageKeys = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String imageKey = snapshot.getKey(); // Get the key of the image
+                    String imageUrl = snapshot.getValue(String.class);
+                    imageKeys.add(imageKey);
+                    imageUrls.add(imageUrl);
+                }
+                displayImages(imageUrls, imageKeys);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle errors
+            }
+        });
+
     }
+
+
+    private void displayImages(List<String> imageUrls, final List<String> imageKeys) {
+        LinearLayout linearLayout = findViewById(R.id.imageContainerLayout);
+
+        for (int i = 0; i < imageUrls.size(); i++) {
+            final int position = i;
+            ImageView imageView = new ImageView(this);
+            Picasso.get().load(imageUrls.get(position)).into(imageView);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(10, 0, 10, 0);
+            imageView.setLayoutParams(layoutParams);
+
+            linearLayout.addView(imageView);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String clickedImageKey = imageKeys.get(position);
+                    selectedMaterial.setText("Selected Material : "+clickedImageKey);
+                    Toast.makeText(CustomClothing.this, "Clicked Image Key: " + clickedImageKey, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+
 
 
     private void updateApparelOptions(String selectedGender) {

@@ -13,6 +13,12 @@
         android:theme="@style/Theme.RichStich"
         tools:targetApi="31">
         <activity
+            android:name=".MeasurementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MaterialSelection"
+            android:exported="false" />
+        <activity
             android:name=".Payment"
             android:exported="false" />
         <activity

@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".CustomClothing">
 
+
     <Spinner
         android:id="@+id/genderSpinner"
-        android:layout_width="308dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="302dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="36dp"
         android:entries="@array/gender_options"
         android:prompt="@string/select_gender"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.281"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,22 +23,10 @@
         android:id="@+id/apparelSpinner"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="44dp"
         android:prompt="@string/select_apparel_type"
-        app:layout_constraintEnd_toEndOf="@+id/materialSpinner"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/materialSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/materialSpinner" />
-
-
-    <Spinner
-        android:id="@+id/materialSpinner"
-        android:layout_width="298dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="32dp"
-        android:prompt="@string/select_material"
         app:layout_constraintEnd_toEndOf="@+id/genderSpinner"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/genderSpinner"
         app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
 
@@ -45,24 +34,53 @@
         android:id="@+id/measurementsBtn"
         android:layout_width="227dp"
         android:layout_height="50dp"
-        android:layout_marginTop="48dp"
         android:text="Get Measurements"
-        app:layout_constraintEnd_toEndOf="@+id/apparelSpinner"
-        app:layout_constraintHorizontal_bias="0.452"
-        app:layout_constraintStart_toStartOf="@+id/apparelSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/apparelSpinner" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.781" />
 
     <Button
         android:id="@+id/placeOrder"
-        android:layout_width="163dp"
-        android:layout_height="43dp"
-        android:text="place order"
+        android:layout_width="206dp"
+        android:layout_height="57dp"
+        android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/measurementsBtn"
-        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="@+id/measurementsBtn"
         app:layout_constraintTop_toBottomOf="@+id/measurementsBtn"
-        app:layout_constraintVertical_bias="0.202" />
+        app:layout_constraintVertical_bias="0.141" />
 
+    <TextView
+        android:id="@+id/selectedMaterial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="selected material : "
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/apparelSpinner"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="@+id/apparelSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/apparelSpinner" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="399dp"
+        android:layout_height="181dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectedMaterial">
+
+        <LinearLayout
+            android:id="@+id/imageContainerLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
