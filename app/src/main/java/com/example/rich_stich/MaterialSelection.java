@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,13 +43,17 @@ public class MaterialSelection extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<String> imageUrls = new ArrayList<>();
                 List<String> imageKeys = new ArrayList<>();
+                List<String> prices = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String imageKey = snapshot.getKey(); // Get the key of the image
-                    String imageUrl = snapshot.getValue(String.class);
+                    String imageUrl = snapshot.child("url").getValue(String.class);
+                    String priceValue = snapshot.child("price").getValue(Integer.class).toString();
+
+                    prices.add(priceValue);
                     imageKeys.add(imageKey);
                     imageUrls.add(imageUrl);
                 }
-                displayImages(imageUrls, imageKeys);
+                displayImages(imageUrls, imageKeys, prices);
             }
 
             @Override
@@ -59,12 +65,16 @@ public class MaterialSelection extends AppCompatActivity {
     }
 
 
-    private void displayImages(List<String> imageUrls, final List<String> imageKeys) {
+    private void displayImages(List<String> imageUrls, final List<String> imageKeys,List<String> prices) {
         LinearLayout linearLayout = findViewById(R.id.imageContainerLayout);
 
         for (int i = 0; i < imageUrls.size(); i++) {
             final int position = i;
             ImageView imageView = new ImageView(this);
+            TextView priceTextView = new EditText(this);
+
+
+            priceTextView.setText("Price: "+prices.get(position));
             Picasso.get().load(imageUrls.get(position)).into(imageView);
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -73,13 +83,16 @@ public class MaterialSelection extends AppCompatActivity {
             );
             layoutParams.setMargins(10, 10, 10, 10);
             imageView.setLayoutParams(layoutParams);
+            priceTextView.setLayoutParams(layoutParams);
 
+            linearLayout.addView(priceTextView);
             linearLayout.addView(imageView);
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String clickedImageKey = imageKeys.get(position);
+                    String price = prices.get(position);
                     selectedMaterial.setText("Selected Material : "+clickedImageKey);
                     Toast.makeText(MaterialSelection.this, "Clicked Image Key: " + clickedImageKey, Toast.LENGTH_SHORT).show();
 
@@ -87,6 +100,7 @@ public class MaterialSelection extends AppCompatActivity {
                     Intent intent = new Intent(MaterialSelection.this, MeasurementActivity.class);
                     intent.putExtra("selectedMaterial", clickedImageKey);
                     intent.putExtra("genderAndApparel", getIntent().getSerializableExtra("genderAndApparel"));
+                    intent.putExtra("materialPrice", price);
                     startActivity(intent);
 
                 }

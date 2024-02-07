@@ -26,6 +26,7 @@ public class MeasurementActivity extends AppCompatActivity {
         String material=(String) intent.getSerializableExtra("selectedMaterial");
         GenderAndApparelSelection obj=(GenderAndApparelSelection) intent.getSerializableExtra("genderAndApparel");
         String[] measurements=obj.getMeasurements();
+        String price=(String) intent.getSerializableExtra("materialPrice");
 
         LinearLayout layout = findViewById(R.id.linearLayout);
 
@@ -49,6 +50,7 @@ public class MeasurementActivity extends AppCompatActivity {
                 intent.putExtra("genderAndApparel", obj);
                 intent.putExtra("measurements", measurementsList);
                 intent.putExtra("hints", hintsList);
+                intent.putExtra("materialPrice", price);
                 startActivity(intent);
             }
         });

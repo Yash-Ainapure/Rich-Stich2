@@ -33,16 +33,12 @@ import java.util.List;
 public class CustomClothing extends AppCompatActivity {
 
     private String selectedGender,selectedApparel;
-    List<String> enteredMeasurements = new ArrayList<>();
-    Button getMeasurements,selectMaterial;
-    TextView selectedMaterial;
+    Button selectMaterial;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_clothing);
 
-        selectedMaterial = findViewById(R.id.selectedMaterial);
-        getMeasurements = findViewById(R.id.measurementsBtn);
         selectMaterial = findViewById(R.id.placeOrder);
 
         //spinner to select gender from user
@@ -91,13 +87,6 @@ public class CustomClothing extends AppCompatActivity {
         });
 
 
-        getMeasurements.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMeasurementsInputDialog(selectedGender,selectedApparel);
-            }
-        });
-
         selectMaterial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,62 +99,7 @@ public class CustomClothing extends AppCompatActivity {
             }
         });
 
-
-        //displaying image in the image view
-        DatabaseReference imagesRef = FirebaseDatabase.getInstance().getReference("imageCollection");
-        imagesRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> imageUrls = new ArrayList<>();
-                List<String> imageKeys = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String imageKey = snapshot.getKey(); // Get the key of the image
-                    String imageUrl = snapshot.getValue(String.class);
-                    imageKeys.add(imageKey);
-                    imageUrls.add(imageUrl);
-                }
-                displayImages(imageUrls, imageKeys);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle errors
-            }
-        });
-
     }
-
-
-    private void displayImages(List<String> imageUrls, final List<String> imageKeys) {
-        LinearLayout linearLayout = findViewById(R.id.imageContainerLayout);
-
-        for (int i = 0; i < imageUrls.size(); i++) {
-            final int position = i;
-            ImageView imageView = new ImageView(this);
-            Picasso.get().load(imageUrls.get(position)).into(imageView);
-
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            layoutParams.setMargins(10, 0, 10, 0);
-            imageView.setLayoutParams(layoutParams);
-
-            linearLayout.addView(imageView);
-
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String clickedImageKey = imageKeys.get(position);
-                    selectedMaterial.setText("Selected Material : "+clickedImageKey);
-                    Toast.makeText(CustomClothing.this, "Clicked Image Key: " + clickedImageKey, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-
-
 
     private void updateApparelOptions(String selectedGender) {
         // You can implement logic here to update the apparel options based on gender
@@ -176,72 +110,6 @@ public class CustomClothing extends AppCompatActivity {
                 android.R.layout.simple_spinner_item);
         apparelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         apparelSpinner.setAdapter(apparelAdapter);
-    }
-
-    private void showMeasurementsInputDialog(String selectedGender, String selectedApparel) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Measurements");
-
-        // Inflate the dynamic layout for measurements input
-        View dialogView = getLayoutInflater().inflate(R.layout.measurements_input_dialog, null);
-        LinearLayout measurementsLayout = dialogView.findViewById(R.id.measurementsLayout);
-
-        // Clear existing views in the layout
-        measurementsLayout.removeAllViews();
-
-        // Add input fields dynamically based on selected gender and apparel
-        String[] measurementsArray = getMeasurementsArray(selectedGender, selectedApparel);
-        for (String measurement : measurementsArray) {
-            EditText editText = new EditText(this);
-            editText.setHint(measurement);  // Set hint to display the type of measurement
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            editText.setLayoutParams(layoutParams);
-            measurementsLayout.addView(editText);
-        }
-
-        builder.setView(dialogView);
-
-
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Retrieve measurements from dynamically created input fields
-                List<String> enteredMeasurements = new ArrayList<>();
-                int childCount = measurementsLayout.getChildCount();
-
-                for (int i = 0; i < childCount; i++) {
-                    View view = measurementsLayout.getChildAt(i);
-                    if (view instanceof EditText) {
-                        EditText editText = (EditText) view;
-                        String measurementValue = editText.getText().toString().trim();
-
-                        // Check if the measurement value is empty
-                        if (measurementValue.isEmpty()) {
-                            // Display an error message or handle the case where a measurement is not provided
-                            Toast.makeText(CustomClothing.this, "Please fill in all measurement fields", Toast.LENGTH_SHORT).show();
-                            return; // Stop further processing if any field is empty
-                        }
-
-                        // Add the measurement to the list
-                        enteredMeasurements.add(measurementValue);
-                    }
-                }
-                // Display all entered measurements in a Toast message
-                displayMeasurementsToast(enteredMeasurements);
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.create().show();
     }
 
     private void displayMeasurementsToast(List<String> measurements) {
