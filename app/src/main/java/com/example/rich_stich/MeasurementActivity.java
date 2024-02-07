@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MeasurementActivity extends AppCompatActivity {
 
@@ -36,43 +37,27 @@ public class MeasurementActivity extends AppCompatActivity {
         measurementsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                measurementsList.clear();
                 for (int i = 0; i < measurements.length; i++) {
-                    EditText editText = (EditText) layout.getChildAt(i); // Get the EditText directly from the layout
-
+                    EditText editText = findViewById(layout.getChildAt(i).getId());
                     String measurementValue = editText.getText().toString();
-                    hintsList.set(i, measurementValue);
-                    measurementsList.set(i, measurementValue);
-
-                    Log.d("MeasurementActivity", "Measurement: " + measurementsList.get(i));
+                    measurementsList.add(measurementValue);
                 }
+
+                Intent intent = new Intent(MeasurementActivity.this, Payment.class);
+                intent.putExtra("selectedMaterial", material);
+                intent.putExtra("genderAndApparel", obj);
+                intent.putExtra("measurements", measurementsList);
+                intent.putExtra("hints", hintsList);
+                startActivity(intent);
             }
         });
-
-
-//        measurementsBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                for (int i = 0; i < measurements.length; i++) {
-//                    EditText editText = findViewById(layout.getChildAt(i).getId());
-//                    String measurementValue = editText.getText().toString();
-//                    hintsList.set(i,measurementValue);
-//                    measurementsList.set(i, measurementValue);
-//
-//                    for (int j = 0; j <hintsList.size(); j++) {
-//                        Log.d("MeasurementActivity", "Measurement: " + measurementsList.get(j));
-//                    }
-//                    for (int j = 0; j <measurementsList.size(); j++) {
-//                        Log.d("MeasurementActivity", "Measurement: " + measurementsList.get(j));
-//                    }
-//                }
-//            }
-//        });
-
 
 
         //display edit texts of measurements
         for (String measurement : measurements) {
             EditText editText = new EditText(this);
+            hintsList.add(measurement);
             editText.setHint(measurement);
             editText.setId(View.generateViewId());
 
