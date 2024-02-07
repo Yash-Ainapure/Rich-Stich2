@@ -28,6 +28,7 @@ import java.util.List;
 
 public class Payment extends AppCompatActivity {
 
+    TextView fabricCost,WorkingCost,DeliveryCharges,TotalPrice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +45,11 @@ public class Payment extends AppCompatActivity {
         LinearLayout layout = findViewById(R.id.linearLayout);
         ImageView imageView = findViewById(R.id.materialImageView);
         TextView apparelTextView = findViewById(R.id.apparelTextView);
-        TextView priceTextView = findViewById(R.id.materialPrice);
         Button payButton = findViewById(R.id.payButton);
+        fabricCost=findViewById(R.id.fabricCost);
+        WorkingCost=findViewById(R.id.workingcost);
+        DeliveryCharges=findViewById(R.id.DeleveryCharges);
+        TotalPrice=findViewById(R.id.TotalPrice);
 
         //displaying image in the image view
         DatabaseReference imagesRef = FirebaseDatabase.getInstance().getReference("imageCollection").child(material);
@@ -61,7 +65,10 @@ public class Payment extends AppCompatActivity {
         });
 
         apparelTextView.setText("Apparel : "+obj.getApparel());
-        priceTextView.setText("Material Price : "+price);
+        fabricCost.setText("Fabric Cost : "+price);
+        WorkingCost.setText("Working Cost : 1000");
+        DeliveryCharges.setText("Delivery Charges : 100");
+        TotalPrice.setText("Total Price : "+(Integer.parseInt(price)+1000+100));
 
 
         Log.d("MyActivity", "Material Price : " + price);
@@ -80,8 +87,9 @@ public class Payment extends AppCompatActivity {
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(Payment.this, PaymentGateway.class);
-                //startActivity(intent);
+                Intent intent = new Intent(Payment.this, ComfirmPayment.class);
+                intent.putExtra("totalPrice", (Integer.parseInt(price)+1000+100));
+                startActivity(intent);
             }
         });
 
