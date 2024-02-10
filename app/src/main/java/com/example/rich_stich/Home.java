@@ -38,7 +38,7 @@ import java.io.IOException;
 public class Home extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    LinearLayout newCustomer,Orders,doneOrders;
+    LinearLayout newCustomer,Orders,doneOrders,reciepts;
     ActionBarDrawerToggle actionBarDrawerTogg1e;
     TextView username;
     LinearLayout customClothing;
@@ -75,6 +75,7 @@ public class Home extends AppCompatActivity {
         newCustomer=findViewById(R.id.linearLayout5);
         Orders=findViewById(R.id.linearLayout3);
         doneOrders=findViewById(R.id.linearLayout6);
+        reciepts=findViewById(R.id.linearLayout4);
 
         customClothing=findViewById(R.id.linearLayout2);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -119,6 +120,12 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Home.this,DoneOrders.class));
+            }
+        });
+        reciepts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this,RecieptActivity.class));
             }
         });
 

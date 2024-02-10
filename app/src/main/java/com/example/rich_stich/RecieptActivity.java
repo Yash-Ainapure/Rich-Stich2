@@ -18,20 +18,20 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoneOrders extends AppCompatActivity implements DoneOrderAdapter.OnMarkAsDoneClickListener{
+public class RecieptActivity extends AppCompatActivity implements RecieptActivityAdapter.OnMarkAsDoneClickListener{
 
     private RecyclerView recyclerViewOrders;
     private List<OrderInfo> orderList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_done_orders);
+        setContentView(R.layout.activity_reciept);
 
         recyclerViewOrders = findViewById(R.id.recyclerViewOrders);
         recyclerViewOrders.setLayoutManager(new LinearLayoutManager(this));
 
         // Inside OrdersActivity.java
-        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("orders").child("done");
+        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("orders").child("reciept");
 
         // Attach a ValueEventListener to fetch orders
         ordersRef.addValueEventListener(new ValueEventListener() {
@@ -46,7 +46,7 @@ public class DoneOrders extends AppCompatActivity implements DoneOrderAdapter.On
                 }
 
                 // Populate RecyclerView with orders
-                DoneOrderAdapter ordersAdapter = new DoneOrderAdapter(DoneOrders.this,orderList,DoneOrders.this);
+                RecieptActivityAdapter ordersAdapter = new RecieptActivityAdapter(RecieptActivity.this,orderList,RecieptActivity.this);
                 recyclerViewOrders.setAdapter(ordersAdapter);
             }
 
@@ -56,25 +56,18 @@ public class DoneOrders extends AppCompatActivity implements DoneOrderAdapter.On
             }
         });
     }
+
     @Override
     public void onMarkAsDoneClick(int position) {
         OrderInfo clickedOrder = orderList.get(position);
         DatabaseReference doneOrdersRef = FirebaseDatabase.getInstance().getReference("orders").child("reciept");
-        String previousKey=clickedOrder.getKey();
+        doneOrdersRef.child(clickedOrder.getKey()).removeValue();
 
-        String key=doneOrdersRef.push().getKey();
-        clickedOrder.setKey(key);
-        doneOrdersRef.child(key).setValue(clickedOrder);
-
-        // Remove the clicked order from the "pending" node
-        DatabaseReference pendingOrderRef = FirebaseDatabase.getInstance().getReference().child("orders").child("done").child(previousKey);
-        pendingOrderRef.removeValue();
-
-        Toast.makeText(this, "order payment done successfully,added to the reciept section", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "reciept deleted successfully", Toast.LENGTH_SHORT).show();
 
         // Remove the clicked order from the local orderList
         orderList.remove(clickedOrder);
 
-        startActivity(new Intent(DoneOrders.this, Home.class));
+        startActivity(new Intent(RecieptActivity.this, Home.class));
     }
 }
