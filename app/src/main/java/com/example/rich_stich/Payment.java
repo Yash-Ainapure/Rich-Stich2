@@ -148,11 +148,13 @@ public class Payment extends AppCompatActivity {
 
 
                 // Save the order to the database
-                DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("orders");
-                ordersRef.push().setValue(order);
+                DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("orders").child("pending");
+                String orderId = ordersRef.push().getKey();
+                order.setKey(orderId);
+                ordersRef.child(orderId).setValue(order);
 
                 Toast.makeText(Payment.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Payment.this, MainActivity.class));
+                startActivity(new Intent(Payment.this, Home.class));
             }
         });
 

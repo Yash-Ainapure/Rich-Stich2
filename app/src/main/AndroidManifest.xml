@@ -13,6 +13,12 @@
         android:theme="@style/Theme.RichStich"
         tools:targetApi="31">
         <activity
+            android:name=".DoneOrders"
+            android:exported="false" />
+        <activity
+            android:name=".Orders"
+            android:exported="false" />
+        <activity
             android:name=".AddNewCustomer"
             android:exported="false" />
         <activity

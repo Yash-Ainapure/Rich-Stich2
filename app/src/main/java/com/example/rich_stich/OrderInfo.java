@@ -3,13 +3,11 @@ package com.example.rich_stich;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.rich_stich.Customer;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class OrderInfo implements Parcelable {
-    private String gender, material, apparel, quantity, total, clothAmount, addons;
+    private String gender, material, apparel, quantity, total, clothAmount, addons,key;
     private Map<String, String> measurements;
     private Customer customer;
 
@@ -27,6 +25,7 @@ public class OrderInfo implements Parcelable {
         clothAmount = in.readString();
         addons = in.readString();
         customer = in.readParcelable(Customer.class.getClassLoader());
+        key = in.readString();
     }
 
     public static final Creator<OrderInfo> CREATOR = new Creator<OrderInfo>() {
@@ -41,6 +40,12 @@ public class OrderInfo implements Parcelable {
         }
     };
 
+    public String getKey() {
+        return key;
+    }
+    public void setKey(String key) {
+        this.key = key;
+    }
     public String getGender() {
         return gender;
     }
@@ -129,5 +134,6 @@ public class OrderInfo implements Parcelable {
         dest.writeString(clothAmount);
         dest.writeString(addons);
         dest.writeParcelable(customer, flags);
+        dest.writeString(key);
     }
 }

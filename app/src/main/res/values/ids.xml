@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="addonsTextView" type="id" />
+    <item name="markAsDoneButton" type="id" />
+    <item name="genderTextView" type="id" />
+    <item name="materialTextView" type="id" />
+    <item name="measurementsTextView" type="id" />
+    <item name="customerNameTextView" type="id" />
+    <item name="quantityTextView" type="id" />
+    <item name="clothAmountTextView" type="id" />
+    <item name="totalAmountTextView" type="id" />
+    <item name="doneOrders" type="id" />
+    <item name="linearLayout6" type="id" />
+</resources>
