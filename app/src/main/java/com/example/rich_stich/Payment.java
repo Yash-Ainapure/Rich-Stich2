@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,14 +24,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Payment extends AppCompatActivity {
 
-    TextView fabricCost,WorkingCost,DeliveryCharges,TotalPrice;
+    EditText QuantityEdt,TotalEdt,ClothAmtEdt,Addons;
+    private Spinner customerSpinner;
+    private DatabaseReference customersReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +49,43 @@ public class Payment extends AppCompatActivity {
         String price=(String) intent.getSerializableExtra("materialPrice");
 
 
+        customerSpinner = findViewById(R.id.customerSpinner);
         LinearLayout layout = findViewById(R.id.linearLayout);
         ImageView imageView = findViewById(R.id.materialImageView);
         TextView apparelTextView = findViewById(R.id.apparelTextView);
         Button payButton = findViewById(R.id.payButton);
-        fabricCost=findViewById(R.id.fabricCost);
-        WorkingCost=findViewById(R.id.workingcost);
-        DeliveryCharges=findViewById(R.id.DeleveryCharges);
-        TotalPrice=findViewById(R.id.TotalPrice);
+        QuantityEdt = findViewById(R.id.Quantity);
+        TotalEdt = findViewById(R.id.TotalAmount);
+        ClothAmtEdt = findViewById(R.id.ClothAmount);
+        Addons = findViewById(R.id.addons);
+
+
+        //creating spinner options for customer selection
+        customersReference = FirebaseDatabase.getInstance().getReference().child("customers");
+        customersReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Assuming Customer is a class representing your customer data
+                List<Customer> customerList = new ArrayList<>();
+
+                for (DataSnapshot customerSnapshot : dataSnapshot.getChildren()) {
+                    Customer customer = customerSnapshot.getValue(Customer.class);
+                    if (customer != null) {
+                        customerList.add(customer);
+                    }
+                }
+
+                // Now, you have the customerList, proceed to populate the Spinner
+                ArrayAdapter<Customer> adapter = new ArrayAdapter<>(Payment.this, R.layout.simple_spinner_item, customerList);
+                adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                customerSpinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors
+            }
+        });
 
         //displaying image in the image view
         DatabaseReference imagesRef = FirebaseDatabase.getInstance().getReference("imageCollection").child(material);
@@ -65,10 +101,6 @@ public class Payment extends AppCompatActivity {
         });
 
         apparelTextView.setText("Apparel : "+obj.getApparel());
-        fabricCost.setText("Fabric Cost : "+price);
-        WorkingCost.setText("Working Cost : 1000");
-        DeliveryCharges.setText("Delivery Charges : 100");
-        TotalPrice.setText("Total Price : "+(Integer.parseInt(price)+1000+100));
 
 
         Log.d("MyActivity", "Material Price : " + price);
@@ -87,9 +119,40 @@ public class Payment extends AppCompatActivity {
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Payment.this, ComfirmPayment.class);
-                intent.putExtra("totalPrice", (Integer.parseInt(price)+1000+100));
-                startActivity(intent);
+                String quantity = QuantityEdt.getText().toString();
+                String total = TotalEdt.getText().toString();
+                String clothAmount = ClothAmtEdt.getText().toString();
+                String addons = Addons.getText().toString();
+                Customer customer = (Customer) customerSpinner.getSelectedItem();
+
+                // Create a new order object
+                OrderInfo order = new OrderInfo();
+                order.setMaterial(material);
+                order.setGender(obj.getGender());
+                order.setApparel(obj.getApparel());
+
+                // Assuming measurementsList and hintsList are ArrayList<String>
+                Map<String, String> measurementsMap = new HashMap<>();
+                for (int i = 0; i < measurementsList.size(); i++) {
+                    String measurementKey = hintsList.get(i);
+                    String measurementValue = measurementsList.get(i);
+                    measurementsMap.put(measurementKey, measurementValue);
+                }
+                order.setMeasurements(measurementsMap);
+
+                order.setQuantity(quantity);
+                order.setTotal(total);
+                order.setClothAmount(clothAmount);
+                order.setAddons(addons);
+                order.setCustomer(customer);
+
+
+                // Save the order to the database
+                DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("orders");
+                ordersRef.push().setValue(order);
+
+                Toast.makeText(Payment.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Payment.this, MainActivity.class));
             }
         });
 
@@ -103,4 +166,5 @@ public class Payment extends AppCompatActivity {
             layout.addView(tv);
         }
     }
+
 }
