@@ -1,6 +1,7 @@
 package com.example.rich_stich;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +37,7 @@ public class RecieptActivityAdapter extends RecyclerView.Adapter<RecieptActivity
     @NonNull
     @Override
     public RecieptActivityAdapter.OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View listItemView = LayoutInflater.from(context).inflate(R.layout.item_order, parent, false);
+        View listItemView = LayoutInflater.from(context).inflate(R.layout.reciept_item_order, parent, false);
         return new RecieptActivityAdapter.OrderViewHolder(listItemView);
     }
 
@@ -37,8 +45,31 @@ public class RecieptActivityAdapter extends RecyclerView.Adapter<RecieptActivity
     public void onBindViewHolder(@NonNull RecieptActivityAdapter.OrderViewHolder holder, int position) {
         OrderInfo currentOrder = orders.get(position);
 
+        DatabaseReference ordersRef = FirebaseDatabase.getInstance()
+                .getReference("imageCollection").child(currentOrder.getMaterial())
+                .child("url");
+        ordersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String imageUrl = dataSnapshot.getValue(String.class);
+
+                if (imageUrl != null) {
+                    // Load the image using Picasso
+                    Picasso.get().load(imageUrl).into(holder.materialImageView);
+                } else {
+                    // Handle the case where imageUrl is null or not available
+                }
+
+                Log.d("image url", imageUrl);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+
         // Populate views
-        holder.materialImageView.setImageResource(getImageResource(currentOrder.getMaterial()));
         holder.genderTextView.setText("Gender: " + currentOrder.getGender());
         holder.apparelTextView.setText("Apparel: " + currentOrder.getApparel());
         holder.materialTextView.setText("Material: " + currentOrder.getMaterial());
