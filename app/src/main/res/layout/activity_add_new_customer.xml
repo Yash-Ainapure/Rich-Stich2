@@ -5,35 +5,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/signupbg"
+    android:gravity="center_vertical"
     android:orientation="vertical"
     android:padding="16dp"
+
     tools:context=".AddNewCustomer">
 
-    <EditText
-        android:id="@+id/editTextName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="30dp"
+        android:background="@drawable/tabs_bg"
+        >
 
-    <EditText
-        android:id="@+id/editTextMobile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:hint="Mobile Number" />
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/custom_edit_bg"
+            android:ems="10"
+            android:hint="Name"
+            android:padding="15dp"
+            android:textColor="@color/black" />
 
-    <EditText
-        android:id="@+id/editTextAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address" />
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonSave"
-        android:text="Save"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/editTextMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/custom_edit_bg"
+            android:ems="10"
+            android:hint="Mobile Number"
+            android:inputType="phone"
+            android:padding="15dp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/editTextAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/custom_edit_bg"
+            android:ems="10"
+            android:hint="Address"
+            android:padding="15dp"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/custom_button_bg"
+            android:padding="15dp"
+            android:text="Save"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+    </LinearLayout>
 
 
 </LinearLayout>

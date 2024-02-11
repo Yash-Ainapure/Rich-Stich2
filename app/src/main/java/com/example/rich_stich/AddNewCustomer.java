@@ -1,12 +1,15 @@
 package com.example.rich_stich;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -15,15 +18,30 @@ public class AddNewCustomer extends AppCompatActivity {
 
     private EditText editTextName, editTextMobile, editTextAddress;
     private Button btnSaveCustomer;
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            // Handle the back button
+            case android.R.id.home:
+                onBackPressed(); // This will call the default back button behavior
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private DatabaseReference customersReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_customer);
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            // Set your desired icon for the navigation drawer toggle
+        }
         customersReference = FirebaseDatabase.getInstance().getReference().child("customers");
-
+        getSupportActionBar().setTitle("Add New Customer");
         // Initialize UI elements
         editTextName = findViewById(R.id.editTextName);
         editTextMobile = findViewById(R.id.editTextMobile);

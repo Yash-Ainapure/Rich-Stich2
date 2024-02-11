@@ -4,38 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@color/signupbg"
     tools:context=".MaterialSelection">
+
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+
+        android:layout_marginTop="16dp"
+        android:background="@color/signupbg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.672"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
-            android:id="@+id/imageContainerLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <GridLayout
+                android:id="@+id/imageContainerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:columnCount="2"
+                android:orientation="horizontal" />
+        </LinearLayout>
+
+
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="0dp"
-        android:layout_height="116dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001">
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/selectedMaterial"
@@ -43,10 +59,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="selected material : "
+            android:text="Select Material from below"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="16dp" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

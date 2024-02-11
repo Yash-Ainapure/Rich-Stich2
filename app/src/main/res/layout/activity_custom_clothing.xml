@@ -4,41 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomClothing">
+    tools:context=".CustomClothing"
+    android:padding="20dp"
+    android:background="@color/signupbg"
+    >
 
-
-    <Spinner
-        android:id="@+id/genderSpinner"
-        android:layout_width="302dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="36dp"
-        android:entries="@array/gender_options"
-        android:prompt="@string/select_gender"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/apparelSpinner"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="44dp"
-        android:prompt="@string/select_apparel_type"
-        app:layout_constraintEnd_toEndOf="@+id/genderSpinner"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/genderSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
-
-    <Button
-        android:id="@+id/placeOrder"
-        android:layout_width="206dp"
-        android:layout_height="57dp"
-        android:text="Next"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tabs_bg"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="30dp"
+        android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apparelSpinner" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
+        <Spinner
+            android:id="@+id/genderSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/custom_edit_bg"
+            android:ems="10"
+            android:entries="@array/gender_options"
+            android:prompt="@string/select_gender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/apparelSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/custom_edit_bg"
+            android:ems="10"
+            android:prompt="@string/select_apparel_type"
+            app:layout_constraintEnd_toEndOf="@+id/genderSpinner"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/genderSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
+
+        <Button
+            android:id="@+id/placeOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:background="@drawable/custom_button_bg"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:layout_marginTop="16dp"
+            android:padding="15dp"
+           />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
