@@ -1,13 +1,15 @@
 package com.example.rich_stich;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,13 +25,28 @@ public class DoneOrders extends AppCompatActivity implements DoneOrderAdapter.On
     private RecyclerView recyclerViewOrders;
     private List<OrderInfo> orderList = new ArrayList<>();
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            // Handle the back button
+            case android.R.id.home:
+                onBackPressed(); // This will call the default back button behavior
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_done_orders);
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            // Set your desired icon for the navigation drawer toggle
+        }
         recyclerViewOrders = findViewById(R.id.recyclerViewOrders);
         recyclerViewOrders.setLayoutManager(new LinearLayoutManager(this));
-
+        getSupportActionBar().setTitle("Completed Orders");
         // Inside OrdersActivity.java
         DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("orders").child("done");
 

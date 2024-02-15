@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         android:clipToPadding="false"
+        android:background="@color/signupbg"
         android:scrollbars="vertical"/>
 
 </RelativeLayout>

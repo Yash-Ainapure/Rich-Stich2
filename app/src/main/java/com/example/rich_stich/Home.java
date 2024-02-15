@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -73,8 +72,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         newCustomer=findViewById(R.id.linearLayout5);
-        Orders=findViewById(R.id.linearLayout3);
-        doneOrders=findViewById(R.id.linearLayout6);
+
         reciepts=findViewById(R.id.linearLayout4);
 
         customClothing=findViewById(R.id.linearLayout2);
@@ -109,19 +107,7 @@ public class Home extends AppCompatActivity {
                 startActivity(new Intent(Home.this,AddNewCustomer.class));
             }
         });
-        Orders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Home.this,Orders.class));
-            }
-        });
 
-        doneOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Home.this,DoneOrders.class));
-            }
-        });
         reciepts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,11 +123,13 @@ public class Home extends AppCompatActivity {
 
                 if (itemId == R.id.nav_account) {
                     startActivity(new Intent(Home.this,MyAccount.class));
-                } else if (itemId == R.id.view_manage) {
-                    Log.i("MENU_DRAWER_TAG", "View/Manage is clicked");
+                } else if (itemId == R.id.pending_orders) {
+                    startActivity(new Intent(Home.this,Orders.class));
+                    Log.i("MENU_DRAWER_TAG", "Pending orders is clicked");
                     //startActivity(new Intent(Home.this,MyAccount.class));
-                } else if (itemId == R.id.wishlist) {
-                    Log.i("MENU_DRAWER_TAG", "Wishlist is clicked");
+                } else if (itemId == R.id.completed_orders) {
+                    startActivity(new Intent(Home.this,DoneOrders.class));
+                    Log.i("MENU_DRAWER_TAG", "Completed orders is clicked");
                     //startActivity(new Intent(Home.this,MyAccount.class));
                 }
                 else if (itemId == R.id.logout) {
@@ -176,7 +164,7 @@ public class Home extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Home.this, "failed to load profile image", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Home.this, "failed to load profile image", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (IOException e) {
