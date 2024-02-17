@@ -8,41 +8,39 @@
     android:paddingHorizontal="16dp"
     tools:context=".MyAccount">
 
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileImage"
-        android:layout_width="73dp"
-        android:layout_height="73dp"
-
+        android:layout_width="match_parent"
+        android:layout_height="154dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/blank_profile"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.063"
+        app:layout_constraintVertical_bias="0.18"
         app:shapeAppearanceOverlay="@style/round" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@drawable/tabs_bg"
+        android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.244">
+        app:layout_constraintVertical_bias="0.556">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
             android:background="@android:color/transparent"
             android:text="Username :"
-            android:layout_marginVertical="10dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:typeface="serif" />
