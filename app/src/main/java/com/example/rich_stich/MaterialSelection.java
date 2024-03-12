@@ -62,6 +62,7 @@ public class MaterialSelection extends AppCompatActivity {
                 List<String> imageKeys = new ArrayList<>();
                 List<String> prices = new ArrayList<>();
                 List<String> materialName = new ArrayList<>();
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String imageKey = snapshot.getKey(); // Get the key of the image
                     String imageUrl = snapshot.child("url").getValue(String.class);
@@ -114,6 +115,15 @@ public class MaterialSelection extends AppCompatActivity {
                     selectedMaterial.setText("Selected Material :" + material);
 
                     Toast.makeText(MaterialSelection.this, "Selected Material :" + material, Toast.LENGTH_SHORT).show();
+
+                    if(material.equals("Select Material from gallery")){
+                        Toast.makeText(MaterialSelection.this, "selecting from gallery", Toast.LENGTH_SHORT).show();
+
+                        Intent intentx=new Intent(MaterialSelection.this, MaterialUpload.class);
+                        intentx.putExtra("genderAndApparel", getIntent().getSerializableExtra("genderAndApparel"));
+                        startActivity(intentx);
+                        return;
+                    }
 
                     Intent intent = new Intent(MaterialSelection.this, MeasurementActivity.class);
                     intent.putExtra("selectedMaterial", clickedImageKey);
