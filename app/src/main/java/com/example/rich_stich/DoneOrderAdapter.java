@@ -59,8 +59,6 @@ public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
             } else {
                 // Handle the case where imageUrl is null or not available
             }
-
-            Log.d("image url", imageUrl);
         }
 
         @Override
@@ -74,7 +72,8 @@ public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         holder.apparelTextView.setText("Apparel: " + currentOrder.getApparel());
         holder.materialTextView.setText("Material: " + currentOrder.getMaterial());
         holder.measurementsTextView.setText("Measurements: " + getFormattedMeasurements(currentOrder.getMeasurements()));
-        holder.customerNameTextView.setText("Customer: " + currentOrder.getCustomer().getName());
+        if (currentOrder.getCustomer() != null && currentOrder.getCustomer().getName() != null)
+            holder.customerNameTextView.setText("Customer: " + currentOrder.getCustomer().getName());
         holder.quantityTextView.setText("Quantity: " + currentOrder.getQuantity());
         holder.totalAmountTextView.setText("Total Amount: " + currentOrder.getTotal());
         holder.clothAmountTextView.setText("Cloth Amount: " + currentOrder.getClothAmount());

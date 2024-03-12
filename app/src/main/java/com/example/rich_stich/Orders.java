@@ -2,6 +2,8 @@ package com.example.rich_stich;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Orders extends AppCompatActivity implements OrderAdapter.OnMarkAsDoneClickListener{
+
 
     private RecyclerView recyclerViewOrders;
     private List<OrderInfo> orderList = new ArrayList<>();
@@ -90,11 +93,33 @@ public class Orders extends AppCompatActivity implements OrderAdapter.OnMarkAsDo
         DatabaseReference pendingOrderRef = FirebaseDatabase.getInstance().getReference().child("orders").child("pending").child(previousKey);
         pendingOrderRef.removeValue();
 
-        Toast.makeText(this, "order done successfully,added to the completed orders section", Toast.LENGTH_SHORT).show();
+        if(clickedOrder.getCustomer()!=null && clickedOrder.getCustomer().getMobile()!=null) {
+            String msg = "Heyy "+clickedOrder.getCustomer().getName()+ " Your order: " + clickedOrder.getApparel() + " is completed -Ritch-Stich";
+            sendSMS(clickedOrder.getCustomer().getMobile(), msg);
+            Log.d("names ","name :"+clickedOrder.getCustomer().getName());
+            Log.d("names ","apparel :"+clickedOrder.getApparel());
+            Log.d("names ","total :"+clickedOrder.getTotal());
+            Log.d("names msg ",msg);
+        }
+
+        //Toast.makeText(this,"pending order done order done successfully,added to the completed orders section", Toast.LENGTH_SHORT).show();
 
         // Remove the clicked order from the local orderList
         orderList.remove(clickedOrder);
 
         startActivity(new Intent(Orders.this,Home.class));
     }
+    private void sendSMS(String phoneNumber, String message) {
+        try {
+
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "SMS failed, please try again.", Toast.LENGTH_LONG).show();
+            Log.d("sms failed reasson","the reason is "+e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 }

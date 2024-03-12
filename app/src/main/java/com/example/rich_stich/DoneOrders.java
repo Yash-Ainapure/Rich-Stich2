@@ -2,6 +2,8 @@ package com.example.rich_stich;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -86,8 +88,6 @@ public class DoneOrders extends AppCompatActivity implements DoneOrderAdapter.On
         // Remove the clicked order from the "pending" node
         DatabaseReference pendingOrderRef = FirebaseDatabase.getInstance().getReference().child("orders").child("done").child(previousKey);
         pendingOrderRef.removeValue();
-
-        Toast.makeText(this, "order payment done successfully,added to the reciept section", Toast.LENGTH_SHORT).show();
 
         // Remove the clicked order from the local orderList
         orderList.remove(clickedOrder);
